@@ -36,13 +36,13 @@ public class Pesel {
                 numbers[5] * 3 + numbers[6] * 7 + numbers[7] * 9 + numbers[8] * 1 + numbers[9] * 3;
 
         // divide the result into modulo by ten
-        sum = sum%10;
+        sum = sum % 10;
 
         // subtract the result from ten
         sum = 10 - sum;
 
         // divide the result into modulo by ten
-        sum = sum%10;
+        sum = sum % 10;
 
         return sum == numbers[10];
     }

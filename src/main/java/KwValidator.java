@@ -1,6 +1,13 @@
+/*
+ Land and Mortgage Register is a public register that reveals the legal status of the property.
+ It allows you to determine who it belongs to and what rights your property has.
+ The land registry is quite common to the family of continental legal systems,
+ although the registers of perpetual usufruct in different countries differ significantly.
+ */
+
 public class KwValidator {
 
-    // tworzymy tablicę znaków jakie mogą znaleźć się w księdze, każdy w odpowiednim indeksie
+    // we create an array of characters
     char[] chars = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'X', 'A', 'B', 'C', 'D', 'E', 'F',
             'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'W', 'Y', 'Z'};
 
@@ -11,53 +18,53 @@ public class KwValidator {
 
         int length = kw.length();
 
-        // numer księgi jest mniejszy niż 15 znaków czyli zbyt krótki
+        // the kw is shorter than 15 characters
         if (length < 15) {
             return false;
         }
 
 
-        // numer księgi wieczystej jest większy niż 15 znaków, czyli zbyt długi
+        // the kw is longer than 15 characters
         if (length > 15) {
             return false;
         }
 
-        // nie ma separatorów na swoich miejscach, czyli błąd
+        // there are no separators in their places
         if (kw.charAt(4) != '/' || kw.charAt(13) != '/') {
             return false;
         }
 
-        // brak liter w odpowiednich miejscach numeru księgi, czyli błąd
+        // no letters in the right places
         if (decoding(kw.charAt(0)) < 10 || decoding(kw.charAt(1)) < 10 || decoding(kw.charAt(3)) < 10) {
             return false;
         }
 
-        // brak cyfry w odpowiednim miejscu w księdze, czyli błąd
+        // no numbers in the right places
         if (decoding(kw.charAt(2)) >= 10) {
             return false;
         }
 
-        // nie ma odpowiednich znaków we właściwych miejscach w numerze księgi, czyli błąd
+        // no characters in the right places
         for (int i = 5; i < 13; i++) {
             if (decoding(kw.charAt(i)) >= 10) {
                 return false;
             }
         }
 
-        //przemnażamy kolejne cyfry przez odpowiednie wagi i dodajemy do siebie
+        // multiply subsequent digits by appropriate weights and add to each other
         int sum = 1 * decoding(kw.charAt(0)) + 3 * decoding(kw.charAt(1)) + 7 * decoding(kw.charAt(2))
                 + 1 * decoding(kw.charAt(3)) + 3 * decoding(kw.charAt(5)) + 7 * decoding(kw.charAt(6))
                 + 1 * decoding(kw.charAt(7)) + 3 * decoding(kw.charAt(8)) + 7 * decoding(kw.charAt(9))
                 + 1 * decoding(kw.charAt(10)) + 3 * decoding(kw.charAt(11)) + 7 * decoding(kw.charAt(12));
 
-        // dzielimy modulo przez 10
+        // divide the result into modulo by ten
         sum = sum % 10;
 
-        //porównujemy wynik z oststanią cyfrą z kw
+        // we compare the result with the last digit
         return sum == decoding(kw.charAt(14));
     }
 
-    //metoda zamieniająca znak w numerze księgi na odpowiednią liczbę
+    // method that replaces the sign
     public int decoding(char decode) {
 
         for (int i = 0; i < chars.length; i++) {
