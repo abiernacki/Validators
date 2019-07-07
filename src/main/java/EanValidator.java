@@ -1,3 +1,10 @@
+/*
+A European Article numbering code (EAN) is used to help build credibility for your eCommerce store.
+
+It’s a series of letters and numbers in a unique order that helps identify specific products
+within your own inventory.
+ */
+
 public class EanValidator {
 
     public boolean valid(String ean) {
@@ -12,11 +19,11 @@ public class EanValidator {
             return false;
         }
 
-        // dzielimy ciąg znaków na znaki
+        // we divide the string into characters
         String[] chars = ean.split("");
 
 
-        // przemnażamy kolejne cyfry przez odpowiednie wagi i dodajemy do siebie
+        // multiply subsequent digits by appropriate weights and add to each other
         int sum1 = 0;
         int sum2 = 0;
         int[] numbers = new int[14];
@@ -29,13 +36,13 @@ public class EanValidator {
             }
         }
 
-        // dodajemy liczby mnożone przez 3 i liczby mnożone przez 1
+        //we add numbers multiplied by 3 and numbers multiplied by 1
         int sum = sum1 + sum2;
 
-        // wynik dzielimy modulo przez 10
+        // divide the result into modulo by ten
         sum = sum % 10;
 
-        // od dziesięciu odejmujemy wynik
+        //ten subtract the result
         sum = 10 - sum;
 
         return sum == numbers[13];
